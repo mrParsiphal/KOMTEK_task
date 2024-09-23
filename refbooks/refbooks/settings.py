@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'HandbookAPI.urls'
+ROOT_URLCONF = 'refbooks.urls'
 
 TEMPLATES = [
     {

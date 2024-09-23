@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from api_v1.models import Refbooks, RefbooksVersions, RefbooksElements
+from refbooks.api_v1.models import Refbooks, RefbooksVersions, RefbooksElements
 
 
 class YourTestClass(TestCase):
