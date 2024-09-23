@@ -1,5 +1,5 @@
 """
-URL configuration for HandbookAPI project.
+URL configuration for refbooks project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from refbooks.api_v1 import views as api_v1
+from api_v1 import views as api_v1
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -41,7 +41,7 @@ urlpatterns = [
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('refbooks', api_v1.GetRebooks, name='GetRebookVersion'),
-    path('refbooks/<int:id>/elements', api_v1.GetRebookElements, name='GetRebookElements'),
-    path('refbooks/<int:id>/check_element', api_v1.RebookCheckElement, name='RebookCheckElement'),
+    path('refbooks/', api_v1.GetRebooks, name='GetRebookVersion'),
+    path('refbooks/<int:id>/elements/', api_v1.GetRebookElements, name='GetRebookElements'),
+    path('refbooks/<int:id>/check_element/', api_v1.RebookCheckElement, name='RebookCheckElement'),
 ]

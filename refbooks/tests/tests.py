@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from refbooks.api_v1.models import Refbooks, RefbooksVersions, RefbooksElements
+from api_v1.models import Refbooks, RefbooksVersions, RefbooksElements
 
 
 class YourTestClass(TestCase):
@@ -31,7 +31,7 @@ class YourTestClass(TestCase):
 
     def test_GetRebooks_without_date(self):
         # Проверка вывода всех справочников.
-        resp = self.client.get(path="/refbooks?format=json")
+        resp = self.client.get(path="/refbooks/?format=json")
         self.assertEqual(resp.status_code, 200)
         self.assertTrue({
             "refbooks": [
@@ -55,7 +55,7 @@ class YourTestClass(TestCase):
 
     def test_GetRebook_with_date_1(self):
         # Проверка вывода всех справочников по дате.
-        resp = self.client.get(path="/refbooks?format=json&date=2024-09-12")
+        resp = self.client.get(path="/refbooks/?format=json&date=2024-09-12")
         self.assertEqual(resp.status_code, 200)
         self.assertTrue({"refbooks": [
             {
@@ -67,13 +67,13 @@ class YourTestClass(TestCase):
 
     def test_GetRebook_with_date_2(self):
         # Проверка на отработку исключения при указании слишком поздней даты.
-        resp = self.client.get(path="/refbooks?format=json&date=2024-10-01")
+        resp = self.client.get(path="/refbooks/?format=json&date=2024-10-01")
         self.assertEqual(resp.status_code, 404)
         self.assertTrue(resp.json() == {"error": "Версии справочников подходящие запросу отсутствуют."})
 
     def test_GetRebookElements_without_version(self):
         # Проверка вывода значений актуальной версии.
-        resp = self.client.get(path="/refbooks/1/elements?format=json")
+        resp = self.client.get(path="/refbooks/1/elements/?format=json")
         self.assertEqual(resp.status_code, 200)
         self.assertTrue({"elements": [
             {
@@ -88,7 +88,7 @@ class YourTestClass(TestCase):
 
     def test_GetRebookElements_with_version_1(self):
         # Проверка вывода значений указанной версии.
-        resp = self.client.get(path="/refbooks/1/elements?format=json&version=0.1.2")
+        resp = self.client.get(path="/refbooks/1/elements/?format=json&version=0.1.2")
         self.assertEqual(resp.status_code, 200)
         self.assertTrue({"elements": [
             {
@@ -103,36 +103,36 @@ class YourTestClass(TestCase):
 
     def test_GetRebookElements_with_version_2(self):
         # Проверка на отработку исключения отсутствия элементов.
-        resp = self.client.get(path="/refbooks/2/elements?format=json&version=0.3")
+        resp = self.client.get(path="/refbooks/2/elements/?format=json&version=0.3")
         self.assertEqual(resp.status_code, 404)
         self.assertTrue(resp.json() == {"error": "Елементы подходящие запросу отсутствуют."})
 
     def test_methods_FindRebookVersion_1(self):
         # Проверка на отработку исключения отсутствия справочника.
-        resp = self.client.get(path="/refbooks/10/elements?format=json")
+        resp = self.client.get(path="/refbooks/10/elements/?format=json")
         self.assertEqual(resp.status_code, 404)
         self.assertTrue(resp.json() == {"error": "Указанный справочник отсутствует или не имеет версий!"})
 
     def test_methods_FindRebookVersion_2(self):
         # Проверка на отработку исключения отсутствия версий.
-        resp = self.client.get(path="/refbooks/3/elements?format=json")
+        resp = self.client.get(path="/refbooks/3/elements/?format=json")
         self.assertEqual(resp.status_code, 404)
         self.assertTrue(resp.json() == {"error": "Указанный справочник отсутствует или не имеет версий!"})
 
     def test_methods_FindRebookVersion_3(self):
         # Проверка на отработку исключения отсутствия указанной версии.
-        resp = self.client.get(path="/refbooks/3/elements?format=json&version=0.1")
+        resp = self.client.get(path="/refbooks/3/elements/?format=json&version=0.1")
         self.assertEqual(resp.status_code, 404)
         self.assertTrue(resp.json() == {"error": "Данная версия справочника не найдена."})
 
     def test_RebookCheckElement_1(self):
         # Проверка присутствия элемента в справочнике.
-        resp = self.client.get(path="/refbooks/1/check_element?format=json&code=1&value=1")
+        resp = self.client.get(path="/refbooks/1/check_element/?format=json&code=1&value=1")
         self.assertEqual(resp.status_code, 200)
         self.assertTrue(resp.content == b'true')
 
     def test_RebookCheckElement_2(self):
         # Проверка отсутствия элемента в справочнике.
-        resp = self.client.get(path="/refbooks/1/check_element?format=json&code=3&value=3")
+        resp = self.client.get(path="/refbooks/1/check_element/?format=json&code=3&value=3")
         self.assertEqual(resp.status_code, 200)
         self.assertTrue(resp.content == b'false')
