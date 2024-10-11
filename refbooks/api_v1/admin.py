@@ -58,3 +58,6 @@ class RefbooksVersionsBAdmin(admin.ModelAdmin):
     @admin.display(description="Наименование справочника")
     def NameRefbook(self, obj):
         return Refbooks.objects.get(pk=obj.rb_id.id)
+
+
+admin.site.register(RefbooksElements)

@@ -1,0 +1,78 @@
+- model: api_v1.Refbooks
+  pk: 1
+  fields:
+          code: "1"
+          name: "Справочник №1"
+          description: "Описание №1"
+- model: api_v1.Refbooks
+  pk: 2
+  fields:
+          code: "2"
+          name: "Справочник №2"
+          description: "Описание №2"
+- model: api_v1.Refbooks
+  pk: 3
+  fields:
+          code: "3"
+          name: "Справочник №3"
+          description: "Описание №3"
+- model: api_v1.RefbooksVersions
+  pk: 1
+  fields:
+          version: "0.1.0"
+          date: "2024-09-08"
+          rb_id_id: 1
+- model: api_v1.RefbooksVersions
+  pk: 2
+  fields:
+          version: "0.1.1"
+          date: "2024-09-09"
+          rb_id_id: 1
+- model: api_v1.RefbooksVersions
+  pk: 3
+  fields:
+          version: "0.1.2"
+          date: "2024-09-10"
+          rb_id_id: 1
+- model: api_v1.RefbooksVersions
+  pk: 4
+  fields:
+          version: "0.1"
+          date: "2024-09-08"
+          rb_id_id: 2
+- model: api_v1.RefbooksVersions
+  pk: 5
+  fields:
+          version: "0.2"
+          date: "2024-09-10"
+          rb_id_id: 2
+- model: api_v1.RefbooksVersions
+  pk: 6
+  fields:
+          version: "0.3"
+          date: "2024-09-12"
+          rb_id_id: 2
+- model: api_v1.RefbooksElements
+  pk: 1
+  fields:
+          code: "1"
+          value: "1"
+          rbv_id_id: 3
+- model: api_v1.RefbooksElements
+  pk: 2
+  fields:
+          code: "2"
+          value: "2"
+          rbv_id_id: 3
+- model: api_v1.RefbooksElements
+  pk: 3
+  fields:
+          code: "3"
+          value: "3"
+          rbv_id_id: 5
+- model: api_v1.RefbooksElements
+  pk: 4
+  fields:
+          code: "4"
+          value: "4"
+          rbv_id_id: 5

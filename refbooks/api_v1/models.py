@@ -35,7 +35,7 @@ class RefbooksElements(models.Model):
     rbv_id = models.ForeignKey(RefbooksVersions, on_delete=models.CASCADE, verbose_name="Версия справочника")
 
     def __str__(self):
-        return "Элемент справочника"
+        return f"Элемент справочника {self.code}"
 
     class Meta:
         db_table = "RefbooksElements"

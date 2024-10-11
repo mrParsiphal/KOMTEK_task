@@ -1,11 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import RefbooksVersions
-from rest_framework import status
-from rest_framework.response import Response
 
 
-def FindRebookVersion(version_query, id):
+def findRebookVersion(version_query, id):
     """
     Находит выбранную или актуальную версию справочника.
     Вернёт Exception с указанием, если версия или справочник не найдены.
@@ -17,10 +15,10 @@ def FindRebookVersion(version_query, id):
         try:
             queryset_version = RefbooksVersions.objects.get(rb_id=id, version=version_query)
         except ObjectDoesNotExist:
-            raise Exception("Данная версия справочника не найдена.")
+            raise KeyError("Данная версия справочника не найдена.")
         return queryset_version
     try:
         queryset_version = RefbooksVersions.objects.filter(rb_id=id).latest("date")
     except ObjectDoesNotExist:
-        raise Exception("Указанный справочник отсутствует или не имеет версий!")
+        raise KeyError("Указанный справочник отсутствует или не имеет версий!")
     return queryset_version
