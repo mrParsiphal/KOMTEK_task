@@ -29,10 +29,7 @@ class RefbooksBAdmin(admin.ModelAdmin):
 
     @admin.display(description="Дата начала действия версии")
     def LastVersionDate(self, obj):
-        last_version = RefbooksVersions.objects.filter(rb_id=obj.pk).latest("date")
-        if last_version is not None:
-            return last_version.date
-        return None
+        return RefbooksVersions.objects.filter(rb_id=obj.pk).latest("date").date
 
 
 @admin.register(RefbooksVersions)
@@ -50,14 +47,22 @@ class RefbooksVersionsBAdmin(admin.ModelAdmin):
 
     @admin.display(description="Код справочника")
     def CodeRefbook(self, obj):
-        refbook = Refbooks.objects.get(pk=obj.rb_id.id)
-        if refbook is not None:
-            return refbook.code
-        return None
+        return obj.rb_id.code
 
     @admin.display(description="Наименование справочника")
     def NameRefbook(self, obj):
-        return Refbooks.objects.get(pk=obj.rb_id.id)
+        return obj.rb_id
 
 
-admin.site.register(RefbooksElements)
+@admin.register(RefbooksElements)
+class RefbooksElementsBAdmin(admin.ModelAdmin):
+    list_display = [
+        "VersionRefbook",
+        "code",
+        "value",
+    ]
+    search_fields = ["code", ]
+
+    @admin.display(description="Версия справочника")
+    def VersionRefbook(self, obj):
+        return obj.rbv_id

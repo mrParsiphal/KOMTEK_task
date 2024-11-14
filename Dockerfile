@@ -13,7 +13,11 @@ VOLUME ./refbooks/:/refbooks/
 
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
-RUN gunicorn -b 0.0.0.0:8000 refbooks.refbooks.wsgi:application
+CMD cd refbooks
+CMD python3 manage.py makemigrations
+CMD python3 manage.py migrate
+CMD cd ../
+CMD gunicorn -b 0.0.0.0:8000 refbooks.refbooks.wsgi:application
 
 
 EXPOSE 8000
