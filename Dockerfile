@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 ENV TZ="Europe/Moscow"
 
 
-VOLUME ./refbooks/:/refbooks/
+COPY refbooks .
 
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
